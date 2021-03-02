@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:lang="http://www.springframework.org/schema/lang"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:tool="http://www.springframework.org/schema/tool"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+        http://www.springframework.org/schema/tool http://www.springframework.org/schema/tool/spring-tool.xsd">
+
+    <context:component-scan base-package="com.jwj.config"/>
+    <bean id="person" class="com.jwj.pojo.Person">
+        <constructor-arg index="0" value="11"/>
+        <constructor-arg index="1" value="p11"/>
+    </bean>
+
+    <bean id="user" class="com.jwj.pojo.User">
+        <!--构造函数的方式创建对象-->
+        <constructor-arg index="0" value="abc"/>
+        <constructor-arg index="1" value="12345"/>
+        <constructor-arg index="2" ref="person"/>
+    </bean>
+    <!--静态工厂方法创建对象-->
+    <bean id="userFactory" class="com.jwj.factory.UserFactory" factory-method="getBean"/>
+    <!--非静态工厂方法创建对象-->
+    <bean id="userFactory2" class="com.jwj.factory.UserFactory"/>
+    <bean id="user2" class="com.jwj.pojo.User" factory-bean="userFactory2" factory-method="getBean2"/>
+</beans>
